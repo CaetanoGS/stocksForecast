@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Forecasts</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="static/css/sidaBar.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+
+</head>
+
+<body>
+
+    <nav class="navbar bg-dark navbar-dark">
+        <a class="navbar-brand" href="/">
+            <img src="static/img/logo.png" width="40px" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <div class="row">
+                            <div class="col">
+                                <label for="example-date-input" class="col-2 col-form-label">Date</label>
+                                <input required class="form-control" type="date" value="2011-08-19"
+                                    id="example-date-input">
+                            </div>
+
+                            <div class="col">
+                                <label for="example-date-input" class="col-2 col-form-label">Date</label>
+                                <input required class="form-control" type="date" value="2011-08-19"
+                                    id="example-date-input">
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <div class="row">
+                            <div class="col">
+                                <label for="example-date-input" class="col-2 col-form-label">Company</label>
+                                <input required class="form-control" type="text" value="MCTS" id="example-date-input">
+                            </div>
+                            <div class="col">
+                                <label for="exampleSelect1">Example select</label>
+                                <select class="form-control" id="exampleSelect1" required>
+                                    <option selected>Daily</option>
+                                    <option>Weekly</option>
+                                    <option>Yearly</option>
+                                </select>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div id='myDiv'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var trace1 = {
+            type: 'line',
+            x: [1, 2, 3, 4],
+            y: [5, 10, 2, 8],
+            marker: {
+                color: '007FFF',
+                line: {
+                    width: 2.5
+                }
+            }
+        };
+
+        var trace2 = {
+            type: 'line',
+            x: [1, 2, 3, 4],
+            y: [5, 6, 2, 8],
+            marker: {
+                color: '87CEEB',
+                line: {
+                    width: 2.5
+                }
+            }
+        };
+
+        var data = [trace1, trace2];
+
+        var layout = {
+            title: 'Responsive to window\'s size!',
+            font: { size: 18 }
+        };
+
+        var config = { responsive: true }
+
+        Plotly.newPlot('myDiv', data, layout, config);
+    </script>
+
+</body>
+
+</html>
