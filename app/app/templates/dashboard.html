@@ -31,13 +31,13 @@
                             <div class="col">
                                 <label for="example-date-input" class="col-2 col-form-label">Date</label>
                                 <input required class="form-control" type="date" value="2011-08-19"
-                                    id="example-date-input">
+                                    id="beginDate">
                             </div>
 
                             <div class="col">
                                 <label for="example-date-input" class="col-2 col-form-label">Date</label>
                                 <input required class="form-control" type="date" value="2011-08-19"
-                                    id="example-date-input">
+                                    id="endDate">
                             </div>
                         </div>
                     </a>
@@ -51,7 +51,7 @@
                             </div>
                             <div class="col">
                                 <label for="exampleSelect1">Example select</label>
-                                <select class="form-control" id="exampleSelect1" required>
+                                <select class="form-control" id="period" required>
                                     <option selected>Daily</option>
                                     <option>Weekly</option>
                                     <option>Yearly</option>
@@ -90,6 +90,11 @@
         </div>
     </div>
 
+    <script>
+        document.getElementById('period').addEventListener('change', function(){
+            console.log(document.getElementById('period').value);
+        });
+    </script>
     <script>
         var trace1 = {
 

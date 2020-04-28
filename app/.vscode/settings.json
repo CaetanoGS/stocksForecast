@@ -1,4 +1,20 @@
 {
-    "python.pythonPath": "env/bin/python3",
-    "git.ignoreLimitWarning": true
+    "python.pythonPath": "/usr/local/bin/python3",
+    "git.ignoreLimitWarning": true,
+    "files.exclude": {
+        "**/ __pycache__": true,
+        "**/ .vscode": true,
+        "**/.pyc": true
+    },
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./app",
+        "-p",
+        "*test.py"
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.nosetestsEnabled": false,
+    "python.testing.unittestEnabled": false,
+    "python.testing.promptToConfigure": false
 }
