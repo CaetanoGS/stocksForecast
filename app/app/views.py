@@ -15,9 +15,9 @@ def index():
 def dashboard():
     tickerSymbol = 'MSFT'
 
-    Stocker = stockForecast.Stocker(tickerSymbol)
+    #Stocker = stockForecast.Stocker(tickerSymbol)
 
-    print(Stocker.value, Stocker.error, Stocker.date)
+    #print(Stocker.value, Stocker.error, Stocker.date)
     try:
         #value = Stocker.getTomorrowPrice(tickerSymbol)
         #print(value)
@@ -40,9 +40,9 @@ def dashboard():
 def forecast():
     tickerSymbol = 'MSFT'
 
-    Stocker = stockForecast.Stocker(tickerSymbol)
+    #Stocker = stockForecast.Stocker(tickerSymbol)
 
-    print(Stocker.value, Stocker.error, Stocker.date)
+    #print(Stocker.value, Stocker.error, Stocker.date)
  
     return render_template('forecast.html')
     

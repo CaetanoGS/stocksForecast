@@ -1,0 +1,39 @@
+{
+    "Forecast": {
+        "Name": "on",
+        "LastOpen": 155,
+        "LastLow": 155,
+        "LastHigh": 155,
+        "Change": 5,
+        "LastClose": 155,
+        "TomorrowPrice": 120,
+        "Error": 5,
+        "Arrays": {
+            "dateX": [
+                "2017-01-17",
+                "2017-01-18",
+                "2017-02-10"
+            ],
+            "closeY": [
+                1,
+                2,
+                3
+            ],
+            "openY": [
+                1,
+                2,
+                3
+            ],
+            "lowY": [
+                1,
+                2,
+                3
+            ],
+            "highY": [
+                1,
+                2,
+                3
+            ]
+        }
+    }
+}
