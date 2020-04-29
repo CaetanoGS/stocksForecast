@@ -1,39 +1,32 @@
 {
     "Forecast": {
-        "Name": "on",
-        "LastOpen": 155,
-        "LastLow": 155,
-        "LastHigh": 155,
-        "Change": 5,
-        "LastClose": 155,
-        "TomorrowPrice": 120,
-        "Error": 5,
-        "Arrays": {
-            "dateX": [
-                "2017-01-17",
-                "2017-01-18",
-                "2017-02-10"
-            ],
-            "closeY": [
-                1,
-                2,
-                3
-            ],
-            "openY": [
-                1,
-                2,
-                3
-            ],
-            "lowY": [
-                1,
-                2,
-                3
-            ],
-            "highY": [
-                1,
-                2,
-                3
-            ]
-        }
+        "Name": "SPY",
+        "LastOpen": 321.65,
+        "LastLow": 318.49,
+        "LastHigh": 331.0,
+        "Change": "Sem valor",
+        "LastClose": 319.85,
+        "TomorrowPrice": 288.41,
+        "Error": 2.594,
+        "closeY": [
+            1,
+            2,
+            3
+        ],
+        "openY": [
+            1,
+            2,
+            3
+        ],
+        "lowY": [
+            1,
+            2,
+            3
+        ],
+        "highY": [
+            1,
+            2,
+            3
+        ]
     }
 }

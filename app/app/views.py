@@ -1,7 +1,8 @@
 from app import app
 from flask import render_template
+from flask import jsonify
 import yfinance as yf
-from app import stockForecast
+from app import fillJson
 
 
 
@@ -36,13 +37,12 @@ def dashboard():
     #print(tickerDf.index)
     return render_template('dashboard.html')
 
-@app.route('/forecast')
-def forecast():
-    tickerSymbol = 'MSFT'
+@app.route('/JSON/<ticker>/<initialDate>/<finalDate>/<period>', methods=['GET'])
+def getJSON(ticker, initialDate, finalDate, period):
+    #print(ticker, initialDate, finalDate, period)
 
-    #Stocker = stockForecast.Stocker(tickerSymbol)
+    print(fillJson.JsonFill(ticker, initialDate, finalDate, period))
+    return jsonify("Oi")
 
-    #print(Stocker.value, Stocker.error, Stocker.date)
- 
-    return render_template('forecast.html')
+
     

@@ -50,12 +50,12 @@
                         <div class="row">
                             <div class="col">
                                 <label for="example-date-input" class="col-2 col-form-label">Date</label>
-                                <input required class="form-control" type="date" value="2011-08-19" id="beginDate">
+                                <input required class="form-control" type="date" value="2017-01-01" id="beginDate">
                             </div>
 
                             <div class="col">
                                 <label for="example-date-input" class="col-2 col-form-label">Date</label>
-                                <input required class="form-control" type="date" value="2011-08-19" id="endDate">
+                                <input required class="form-control" type="date" value="2020-1-30" id="endDate">
                             </div>
                         </div>
                     </a>
@@ -65,14 +65,14 @@
                         <div class="row">
                             <div class="col">
                                 <label for="example-date-input" class="col-2 col-form-label">Company</label>
-                                <input required class="form-control" type="text" value="AAPL" id="companyName">
+                                <input required class="form-control" type="text" value="SPY" id="companyName">
                             </div>
                             <div class="col">
                                 <label for="exampleSelect1">Example select</label>
                                 <select class="form-control" id="period" required>
-                                    <option selected>Daily</option>
-                                    <option>Weekly</option>
-                                    <option>Yearly</option>
+                                    <option>Daily</option>
+                                    <option >Weekly</option>
+                                    <option selected>Monthly</option>
                                 </select>
                             </div>
                         </div>
@@ -356,6 +356,50 @@
         })
 
 
+    </script>
+
+    <script>
+        $.ajaxSetup({
+            async: false
+        });
+
+        function getData(ticker, idate, fdate, period){
+            var jsonData = (function () {
+                var result;
+                var html = "/JSON/" + ticker + "/" + idate + "/" + fdate + "/" + period
+                $.getJSON(html, {}, function (data) {
+                    result = data;
+                });
+                return result;
+            });
+
+            return jsonData;
+        }
+
+        $.ajaxSetup({
+            async: false
+        });
+
+        function getData(){
+            var jsonData = (function () {
+                var result;
+                var html = "/JSON/" + ticker + "/" + idate + "/" + fdate + "/" + period
+                $.getJSON(html, {}, function (data) {
+                    result = data;
+                });
+                return result;
+            })();
+
+            return jsonData;
+        }
+
+
+        var ticker = document.getElementById('companyName').value,
+        idate = document.getElementById('beginDate').value,
+        fdate = document.getElementById('endDate').value,
+        period = document.getElementById('period').value;
+
+        console.log(getData(ticker, idate, fdate, period))
     </script>
 
 </body>

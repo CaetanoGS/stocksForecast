@@ -8,6 +8,3 @@ class Stocker:
         self.date = result[2]
         super().__init__()
     
-    def getTomorrowPrice(self, ticket):
-
-        return 'Oi'
