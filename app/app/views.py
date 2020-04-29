@@ -3,6 +3,7 @@ from flask import render_template
 from flask import jsonify
 import yfinance as yf
 from app import fillJson
+import json
 
 
 
@@ -41,8 +42,12 @@ def dashboard():
 def getJSON(ticker, initialDate, finalDate, period):
     #print(ticker, initialDate, finalDate, period)
 
-    print(fillJson.JsonFill(ticker, initialDate, finalDate, period))
-    return jsonify("Oi")
+    df = fillJson.JsonFill(ticker, initialDate, finalDate, period)
+
+    jsonFile = open("app//app//static//json//data.json")
+    data = json.load(jsonFile)
+    jsonFile.close()
+    return jsonify(data)
 
 
     
