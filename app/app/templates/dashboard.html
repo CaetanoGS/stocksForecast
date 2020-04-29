@@ -44,41 +44,52 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <div class="row">
-                            <div class="col">
-                                <label for="example-date-input" class="col-2 col-form-label">Date</label>
-                                <input required class="form-control" type="date" value="2017-01-01" id="beginDate">
+            <form action="/dashboard" method="POST">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="example-date-input" class="col-2 col-form-label">Date</label>
+                                    <input required class="form-control" type="date" value="{{ idate }}"
+                                        name="beginDate" id="beginDate" required>
+                                </div>
+
+                                <div class="col">
+                                    <label for="example-date-input" class="col-2 col-form-label">Date</label>
+                                    <input required class="form-control" type="date" value="{{ fdate }}" name="endDate"
+                                        id="endDate" required>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="example-date-input" class="col-2 col-form-label">Company</label>
+                                    <input required class="form-control" type="text" value="{{ name }}"
+                                        name="companyName" id="companyName" required>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleSelect1">Example select</label>
+                                    <select class="form-control" name="period" id="period" required>
+                                        <option {{option1}}>Daily</option>
+                                        <option {{option2}}>Weekly</option>
+                                        <option {{option3}}>Monthly</option>
+                                    </select>
+                                </div>
                             </div>
 
-                            <div class="col">
-                                <label for="example-date-input" class="col-2 col-form-label">Date</label>
-                                <input required class="form-control" type="date" value="2020-1-30" id="endDate">
+                            <div class="row">
+                                <div class="col">
+                                    <input type="submit" class="btn btn-info" value="Get Predictions" id="btn_sub">
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <div class="row">
-                            <div class="col">
-                                <label for="example-date-input" class="col-2 col-form-label">Company</label>
-                                <input required class="form-control" type="text" value="SPY" id="companyName">
-                            </div>
-                            <div class="col">
-                                <label for="exampleSelect1">Example select</label>
-                                <select class="form-control" id="period" required>
-                                    <option>Daily</option>
-                                    <option >Weekly</option>
-                                    <option selected>Monthly</option>
-                                </select>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-            </ul>
+                        </a>
+                    </li>
+                </ul>
+            </form>
         </div>
     </nav>
 
@@ -102,47 +113,47 @@
 
                                 <tr>
                                     <td>Name</td>
-                                    <td>Dooley</td>
+                                    <td id="td1"></td>
                                     <td></td>
                                 </tr>
 
                                 <tr>
                                     <td>Open</td>
-                                    <td>Dooley</td>
+                                    <td id="td2"></td>
                                     <td></td>
                                 </tr>
 
                                 <tr>
                                     <td>Low</td>
-                                    <td>Dooley</td>
+                                    <td id="td3"></td>
                                     <td></td>
                                 </tr>
 
                                 <tr>
                                     <td>High</td>
-                                    <td>Dooley</td>
+                                    <td id="td4"></td>
                                     <td></td>
                                 </tr>
 
                                 <tr>
                                     <td>Change (%)</td>
-                                    <td>Dooley</td>
+                                    <td id="td5"></td>
                                     <td></td>
                                 </tr>
 
                                 <tr>
-                                    <td>Actual  Close Price</td>
-                                    <td>Doe</td>
+                                    <td>Actual Close Price</td>
+                                    <td id="td6"></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td>Tomorrow Close Price</td>
-                                    <td>Moe</td>
+                                    <td id="td7"></td>
                                     <td><i class="fas fa-angle-down"></i></td>
                                 </tr>
                                 <tr>
                                     <td>Error (%)</td>
-                                    <td>Dooley</td>
+                                    <td id="td8"></td>
                                     <td></td>
                                 </tr>
                             </tbody>
@@ -173,30 +184,77 @@
         </div>
     </div>
 
+
+
     <script>
-        document.getElementById('period').addEventListener('change', function () {
-            console.log(document.getElementById('period').value);
+
+        var ticker = document.getElementById('companyName').value,
+            idate = document.getElementById('beginDate').value,
+            fdate = document.getElementById('endDate').value,
+            period = document.getElementById('period').value;
+
+
+        $.ajaxSetup({
+            async: false
         });
+
+        function getData() {
+            var jsonData = (function () {
+                var result;
+                var html = "/JSON/" + ticker + "/" + idate + "/" + fdate + "/" + period
+                $.getJSON(html, {}, function (data) {
+                    result = data;
+                });
+                return result;
+            })();
+
+            return jsonData;
+        }
+
+
+
+
+        var jsonFile = getData(ticker, idate, fdate, period);
+
+
+        var Name = jsonFile.Forecast.Name,
+            LastOpen = jsonFile.Forecast.LastOpen,
+            LastLow = jsonFile.Forecast.LastLow,
+            LastHigh = jsonFile.Forecast.LastHigh,
+            Change = jsonFile.Forecast.Change,
+            LastClose = jsonFile.Forecast.LastClose,
+            TomorrowPrice = jsonFile.Forecast.TomorrowPrice,
+            xError = jsonFile.Forecast.Error,
+            closeY = jsonFile.Forecast.closeY,
+            openY = jsonFile.Forecast.openY,
+            lowY = jsonFile.Forecast.lowY,
+            highY = jsonFile.Forecast.highY,
+            dateX = jsonFile.Forecast.dateX;
+
+        $('#td1').html(Name);
+        $('#td2').html(LastOpen);
+        $('#td3').html(LastLow);
+        $('#td4').html(LastHigh);
+        $('#td5').html(parseFloat(Change).toFixed(2));
+        $('#td6').html(LastClose);
+        $('#td7').html(TomorrowPrice);
+        $('#td8').html(xError);
     </script>
+
     <script>
         var trace1 = {
 
-            x: ['2017-01-17', '2017-01-18', '2017-01-19', '2017-01-20', '2017-01-23', '2017-01-24', '2017-01-25', '2017-01-26', '2017-01-27', '2017-01-30', '2017-01-31', '2017-02-01', '2017-02-02', '2017-02-03', '2017-02-06', '2017-02-07', '2017-02-08', '2017-02-09', '2017-02-10'],
-
-            close: [120, 119.989998, 119.779999, 120, 120.080002, 119.970001, 121.879997, 121.940002, 121.949997, 121.629997, 121.349998, 128.75, 128.529999, 129.080002, 130.289993, 131.529999, 132.039993, 132.419998, 132.119995],
-
+            x: dateX,
+            close: closeY,
             decreasing: { line: { color: '#7F7F7F' } },
 
-            high: [120.239998, 120.5, 120.089996, 120.449997, 120.809998, 120.099998, 122.099998, 122.440002, 122.349998, 121.629997, 121.389999, 130.490005, 129.389999, 129.190002, 130.5, 132.089996, 132.220001, 132.449997, 132.940002],
-
+            high: highY,
             increasing: { line: { color: '#17BECF' } },
 
             line: { color: 'rgba(31,119,180,1)' },
 
-            low: [118.220001, 119.709999, 119.370003, 119.730003, 119.769997, 119.5, 120.279999, 121.599998, 121.599998, 120.660004, 120.620003, 127.010002, 127.779999, 128.160004, 128.899994, 130.449997, 131.220001, 131.119995, 132.050003],
-
-            open: [118.339996, 120, 119.400002, 120.449997, 120, 119.550003, 120.419998, 121.669998, 122.139999, 120.93, 121.150002, 127.029999, 127.980003, 128.309998, 129.130005, 130.539993, 131.350006, 131.649994, 132.460007],
-
+            low: lowY,
+            open: openY,
             type: 'candlestick',
             xaxis: 'x',
             yaxis: 'y'
@@ -205,7 +263,7 @@
         var data = [trace1];
 
         var layout = {
-            //title: document.getElementById('companyName').value + ' Candlestick',
+            //title: document.getElementById('companyName').value + ' OHLC',
             dragmode: 'zoom',
             margin: {
                 r: 10,
@@ -216,71 +274,36 @@
             showlegend: false,
             xaxis: {
                 autorange: true,
-                rangeslider: { range: ['2017-01-17 12:00', '2017-02-10 12:00'] },
+                rangeslider: { range: [idate, fdate] },
                 title: 'Date',
                 type: 'date'
             },
             yaxis: {
                 autorange: true,
                 type: 'linear'
-            },
-
-            annotations: [
-                {
-                    x: '2017-01-31',
-                    y: 0.9,
-                    xref: 'x',
-                    yref: 'paper',
-                    text: 'largest movement',
-                    font: { color: 'magenta' },
-                    showarrow: true,
-                    xanchor: 'right',
-                    ax: -20,
-                    ay: 0
-                }
-            ],
-
-            shapes: [
-                {
-                    type: 'rect',
-                    xref: 'x',
-                    yref: 'paper',
-                    x0: '2017-01-31',
-                    y0: 0,
-                    x1: '2017-02-01',
-                    y1: 1,
-                    fillcolor: '#d3d3d3',
-                    opacity: 0.2,
-                    line: {
-                        width: 0
-                    }
-                }
-            ]
+            }
         };
 
         var config = { responsive: true };
 
         Plotly.newPlot('myDiv2', data, layout, config);
+
     </script>
 
     <script>
         var trace1 = {
 
-            x: ['2017-01-17', '2017-01-18', '2017-01-19', '2017-01-20', '2017-01-23', '2017-01-24', '2017-01-25', '2017-01-26', '2017-01-27', '2017-01-30', '2017-01-31', '2017-02-01', '2017-02-02', '2017-02-03', '2017-02-06', '2017-02-07', '2017-02-08', '2017-02-09', '2017-02-10'],
-
-            close: [120, 119.989998, 119.779999, 120, 120.080002, 119.970001, 121.879997, 121.940002, 121.949997, 121.629997, 121.349998, 128.75, 128.529999, 129.080002, 130.289993, 131.529999, 132.039993, 132.419998, 132.119995],
-
+            x: dateX,
+            close: closeY,
             decreasing: { line: { color: '#7F7F7F' } },
 
-            high: [120.239998, 120.5, 120.089996, 120.449997, 120.809998, 120.099998, 122.099998, 122.440002, 122.349998, 121.629997, 121.389999, 130.490005, 129.389999, 129.190002, 130.5, 132.089996, 132.220001, 132.449997, 132.940002],
-
+            high: highY,
             increasing: { line: { color: '#17BECF' } },
 
             line: { color: 'rgba(31,119,180,1)' },
 
-            low: [118.220001, 119.709999, 119.370003, 119.730003, 119.769997, 119.5, 120.279999, 121.599998, 121.599998, 120.660004, 120.620003, 127.010002, 127.779999, 128.160004, 128.899994, 130.449997, 131.220001, 131.119995, 132.050003],
-            open: [118.339996, 120, 119.400002, 120.449997, 120, 119.550003, 120.419998, 121.669998, 122.139999, 120.93, 121.150002, 127.029999, 127.980003, 128.309998, 129.130005, 130.539993, 131.350006, 131.649994, 132.460007],
-
+            low: lowY,
+            open: openY,
             type: 'ohlc',
             xaxis: 'x',
             yaxis: 'y'
@@ -300,7 +323,7 @@
             showlegend: false,
             xaxis: {
                 autorange: true,
-                rangeslider: { range: ['2017-01-17 12:00', '2017-02-10 12:00'] },
+                rangeslider: { range: [idate, fdate] },
                 title: 'Date',
                 type: 'date'
             },
@@ -319,87 +342,29 @@
 
 
     <script>
-        Plotly.d3.csv("https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv", function (err, rows) {
+        var trace1 = {
+            type: "scatter",
+            mode: "lines",
+            x: dateX,
+            y: closeY,
+            name: Name + ' Close',
+            line: { color: '#17BECF' }
+        },
 
-            function unpack(rows, key) {
-                return rows.map(function (row) { return row[key]; });
-            }
-
-
-            var trace1 = {
+            trace2 = {
                 type: "scatter",
                 mode: "lines",
-                name: 'AAPL High',
-                x: unpack(rows, 'Date'),
-                y: unpack(rows, 'AAPL.High'),
-                line: { color: '#17BECF' }
-            }
-
-            var trace2 = {
-                type: "scatter",
-                mode: "lines",
-                name: 'AAPL Low',
-                x: unpack(rows, 'Date'),
-                y: unpack(rows, 'AAPL.Low'),
+                x: dateX,
+                y: openY,
+                name: Name + ' Open',
                 line: { color: '#7F7F7F' }
-            }
-
-            var data = [trace1, trace2];
-
-            var layout = {
-                //title: document.getElementById('companyName').value + ' Time Series',
             };
 
-            var config = { responsive: true };
+        var data = [trace1, trace2];
 
-            Plotly.newPlot('myDiv', data, layout, config);
-        })
-
-
-    </script>
-
-    <script>
-        $.ajaxSetup({
-            async: false
-        });
-
-        function getData(ticker, idate, fdate, period){
-            var jsonData = (function () {
-                var result;
-                var html = "/JSON/" + ticker + "/" + idate + "/" + fdate + "/" + period
-                $.getJSON(html, {}, function (data) {
-                    result = data;
-                });
-                return result;
-            });
-
-            return jsonData;
-        }
-
-        $.ajaxSetup({
-            async: false
-        });
-
-        function getData(){
-            var jsonData = (function () {
-                var result;
-                var html = "/JSON/" + ticker + "/" + idate + "/" + fdate + "/" + period
-                $.getJSON(html, {}, function (data) {
-                    result = data;
-                });
-                return result;
-            })();
-
-            return jsonData;
-        }
+        Plotly.newPlot('myDiv', data);
 
 
-        var ticker = document.getElementById('companyName').value,
-        idate = document.getElementById('beginDate').value,
-        fdate = document.getElementById('endDate').value,
-        period = document.getElementById('period').value;
-
-        console.log(getData(ticker, idate, fdate, period))
     </script>
 
 </body>

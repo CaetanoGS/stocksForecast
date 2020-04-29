@@ -17,12 +17,27 @@ class JsonFill:
 
         #get the historical prices for this ticker
         tickerDf = tickerData.history(interval=pd, start= idate, end=fdate)
-        tickerDf = tickerDf.dropna(subset=['Open', 'High', 'Low', 'Close'])
+
+        #print(tickerDf['Open'])
+
+        #print('-----------------------------------------')
+
+        #print(tickerDf['Close'])
+
+        tickerDf = tickerDf.interpolate()
+
+        #print('-----------------------------------------')
 
         dfOpen = tickerDf['Open']
         dfHigh = tickerDf['High']
         dfLow = tickerDf['Low']
         dfClose = tickerDf['Close']
+
+        #print(dfOpen)
+
+        #print('-----------------------------------------')
+
+        #print(dfClose)
 
         self.Open = dfOpen.values.tolist()
         self.High = dfHigh.values.tolist()
