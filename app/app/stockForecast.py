@@ -1,4 +1,8 @@
+# Necessary imports
+
 import stocker
+
+# Running stocker to create a model and predict the tomorrow stock price
 
 class Stocker:
     def __init__(self, ticker):

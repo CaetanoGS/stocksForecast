@@ -1,18 +1,21 @@
+# Necessary Imports
+
 from app import app
 from flask import render_template, request
 from flask import jsonify
-import yfinance as yf
-from app import fillJson
-import json
 from datetime import datetime
+from app import fillJson
+import yfinance as yf
+import json
 
 
-
-#from Foo.Project1 import file1
+# Home page
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+# Forecast pagw
 
 @app.route('/dashboard', methods=['POST','GET'])
 def dashboard():
@@ -22,6 +25,8 @@ def dashboard():
         final_date = request.form['endDate']
         initial_date = request.form['beginDate']
         period_select = request.form['period']
+
+        # Restrictions about the inputs
 
         fdate_datetime = datetime.strptime(final_date,'%Y-%m-%d')
         idate_datetime = datetime.strptime(initial_date, '%Y-%m-%d')
@@ -65,19 +70,19 @@ def dashboard():
                 op2 = ''
                 op3 = 'Selected'
 
-
             
         return render_template('dashboard.html', name= company_name, fdate= final_date, idate= initial_date, option1=op1, option2=op2, option3=op3)
     else:
         return render_template('dashboard.html', name='SPY', fdate= '2020-04-29', idate = '2018-12-01', option1='Selected', option2='', option3='')
 
+# Get Json 
+
 @app.route('/JSON/<ticker>/<initialDate>/<finalDate>/<period>', methods=['GET'])
 def getJSON(ticker, initialDate, finalDate, period):
-    #print(ticker, initialDate, finalDate, period)
 
     df = fillJson.JsonFill(ticker, initialDate, finalDate, period)
 
-    jsonFile = open("app//app//static//json//data.json")
+    jsonFile = open("app//static//json//data.json")
     data = json.load(jsonFile)
     jsonFile.close()
     return jsonify(data)

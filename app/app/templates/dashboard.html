@@ -23,6 +23,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 
 
+    <!-- Separating the containers -->
+
     <style>
         #firstCont {
             margin-top: 20px;
@@ -38,6 +40,8 @@
 </head>
 
 <body>
+
+    <!-- Navbar Form -->
 
     <nav class="navbar bg-dark navbar-dark">
         <a class="navbar-brand" href="/">
@@ -95,6 +99,8 @@
             </form>
         </div>
     </nav>
+
+    <!-- Dashboard -->
 
     <div class="container" id="firstCont">
         <div class="row">
@@ -191,10 +197,15 @@
 
     <script>
 
+        // Get the forms value filled by the user
+
         var ticker = document.getElementById('companyName').value,
             idate = document.getElementById('beginDate').value,
             fdate = document.getElementById('endDate').value,
             period = document.getElementById('period').value;
+
+        
+        // JSON request
 
 
         $.ajaxSetup({
@@ -215,10 +226,9 @@
         }
 
 
-
-
         var jsonFile = getData(ticker, idate, fdate, period);
 
+        // Get the importants informations from the requested JSON
 
         var Name = jsonFile.Forecast.Name,
             LastOpen = jsonFile.Forecast.LastOpen,
@@ -234,6 +244,9 @@
             highY = jsonFile.Forecast.highY,
             dateX = jsonFile.Forecast.dateX;
 
+        
+        // Inserting the parameters in the dashboard table
+
         $('#td1').html(Name);
         $('#td2').html(LastOpen);
         $('#td3').html(LastLow);
@@ -243,6 +256,8 @@
         $('#td7').html(TomorrowPrice);
         $('#td8').html(xError);
 
+        // Control the icon to show if the tomorrow price it is biger than the last close price searched
+        
         if(LastClose < TomorrowPrice)
             document.getElementById('icon1').className = "fa fa-chevron-up";
         else
