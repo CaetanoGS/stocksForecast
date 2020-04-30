@@ -6,7 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="static/css/sidaBar.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    
+    <!-- Bootstrap JS -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -14,6 +16,7 @@
 
     <!-- Bootstrap CSS -->
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen"
@@ -50,13 +53,13 @@
                         <a class="nav-link" href="#">
                             <div class="row">
                                 <div class="col">
-                                    <label for="example-date-input" class="col-2 col-form-label">Date</label>
+                                    <label for="example-date-input" class="col-2 col-form-label">Initial</label>
                                     <input required class="form-control" type="date" value="{{ idate }}"
                                         name="beginDate" id="beginDate" required>
                                 </div>
 
                                 <div class="col">
-                                    <label for="example-date-input" class="col-2 col-form-label">Date</label>
+                                    <label for="example-date-input" class="col-2 col-form-label">Final</label>
                                     <input required class="form-control" type="date" value="{{ fdate }}" name="endDate"
                                         id="endDate" required>
                                 </div>
@@ -142,14 +145,14 @@
                                 </tr>
 
                                 <tr>
-                                    <td>Actual Close Price</td>
+                                    <td>Last Close Price</td>
                                     <td id="td6"></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td>Tomorrow Close Price</td>
                                     <td id="td7"></td>
-                                    <td><i class="fas fa-angle-down"></i></td>
+                                    <td><i class="fas fa-angle-down" id="icon1"></i></td>
                                 </tr>
                                 <tr>
                                     <td>Error (%)</td>
@@ -239,6 +242,12 @@
         $('#td6').html(LastClose);
         $('#td7').html(TomorrowPrice);
         $('#td8').html(xError);
+
+        if(LastClose < TomorrowPrice)
+            document.getElementById('icon1').className = "fa fa-chevron-up";
+        else
+            document.getElementById('icon1').className = "fas fa-angle-down";
+        
     </script>
 
     <script>
