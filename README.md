@@ -5,7 +5,7 @@
 
 ## About this Project
 
-The idea of the App is:
+The idea of the Web App is:
 
 _"Share knowledge in the form of stocks predictions, providing a simple way to learn"._
 
