@@ -15,7 +15,7 @@ import json
 def index():
     return render_template('index.html')
 
-# Forecast pagw
+# Forecast page
 
 @app.route('/dashboard', methods=['POST','GET'])
 def dashboard():
