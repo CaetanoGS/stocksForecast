@@ -3,7 +3,7 @@
 ![Home Page](https://user-images.githubusercontent.com/50907344/80729241-3f868080-8b08-11ea-9ca7-f3b3a3026d01.png)
 ![Time Series Chart](https://user-images.githubusercontent.com/50907344/80728741-9049a980-8b07-11ea-989d-68c15203ae87.png)
 ![Candle and OHLC charts](https://user-images.githubusercontent.com/50907344/80729254-43b29e00-8b08-11ea-941d-a9de18e6db00.png)
-![Barra de Pesquisa](https://user-images.githubusercontent.com/50907344/80729262-47462500-8b08-11ea-8313-2682ebde43dd.png)
+
 
 
 
