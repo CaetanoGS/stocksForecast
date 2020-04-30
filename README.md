@@ -63,7 +63,7 @@ To run this project in the development mode, you'll need to have a basic environ
 ```
 $ git clone https://github.com/CaetanoGS/stocksForecast.git
 
-$ cd stocksForecast
+$ cd stocksForecast/app
 ```
 
 **Installing dependencies**
